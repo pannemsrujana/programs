@@ -1,0 +1,86 @@
+use population
+
+db.createCollection('zipcodes')
+
+mongoimport --db population --collection zipcodes --file zip.json
+
+db.zipcodes.find({
+$and: [
+{city:'ATLANTA'},
+{state:'GA'}
+]})
+
+db.zipcodes.aggregate(
+    [ { $match : { $and: [
+{city:'ATLANTA'},
+{state:'GA'}
+] } } ]
+)
+
+db.zipcodes.aggregate([
+{ $match :{city:"ATLANTA"}},
+    {"$group" : {_id:"$city"}},
+{$count: "city"}
+])
+
+db.zipcodes.aggregate([ { $match :{city:"ATLANTA"}},     
+{"$group" : {_id:"$city", count: {$sum: 1}}} ])
+
+db.zipcodes.aggregate([ { $match :{city:"ATLANTA"}},     
+{"$group" : {_id:"$city", totalPop: {$sum: "$pop"}}} ])
+
+db.zipcodes.aggregate([ 
+{"$group" : {_id:"$state", totalPop: {$sum: "$pop"}}} 
+])
+
+db.zipcodes.aggregate([ 
+{"$group" : {_id:"$state", totalPop: {$sum: "$pop"}}},
+{$sort: {"_id.totalPop": -1}} 
+])
+
+db.zipcodes.aggregate([ 
+{$limit: 3},
+{"$group" : {_id:"$state", totalPop: {$sum: "$pop"}}},
+{$sort: {"_id.totalPop": -1}} 
+])
+
+db.zipcodes.aggregate([ 
+{"$group" : {_id:{city: "$city",state: "$state"}, totalPop: {$sum: "$pop"}}} 
+])
+
+db.zipcodes.aggregate([ 
+{"$group" : {_id:{city: "$city",state: "$state"}, totalPop: {$sum: "$pop"}}},
+{$sort: {"_id.totalPop": -1}}
+])
+
+db.zipcodes.aggregate([ 
+{$limit: 3},
+{"$group" : {_id:{city: "$city",state: "$state"}, totalPop: {$sum: "$pop"}}},
+{$sort: {"_id.totalPop": -1}}
+])
+
+db.zipcodes.aggregate([ 
+{$limit: 3},
+{ $match :{city:"Texas"}},
+{"$group" : {_id:{city: "$city",state: "$state"}, totalPop: {$sum: "$pop"}}},
+{$sort: {"_id.totalPop": -1}}
+])
+
+
+db.zipcodes.aggregate([ 
+{"$group" : {_id:"$state", avgPop: {$avg: "$pop"}}} 
+])
+
+db.zipcodes.aggregate([ 
+{$limit: 3},
+{"$group" : {_id:"$state", avgPop: {$avg: "$pop"}}},
+{$sort: {"_id.avgPop": -1}}
+]
+
+
+
+
+
+
+
+
