@@ -1,0 +1,233 @@
+use mongoAssignment1
+
+db.createCollection('movies')
+
+db.movies.insertMany([
+{
+'title': 'Fight Club',
+'writer': 'Chuck Palahniuko',
+'year': 1999,
+'actors': ['Brad Pitt','Edward Norton']
+},
+{
+'title': 'Pulp Fiction',
+'writer': 'Quentin Tarantino',
+'year': 1994,
+'actors': ['John Travolta','Uma Thurman']
+},
+{
+'title': 'Inglorious Basterds',
+'writer': 'Quentin Tarantino',
+'year': 2009,
+'actors': ['Brad Pitt','Diane Kruger','Eli Roth']
+},
+{
+'title': 'The Hobbit: An Unexpected Journey',
+'writer': 'J.R.R. Tolkein',
+'year': 2012,
+'franchise': 'The Hobbit'
+},
+{
+'title': 'The Hobbit: The Desolation of Smaug',
+'writer': 'J.R.R. Tolkein',
+'year': 2013,
+'franchise': 'The Hobbit'
+},
+{
+'title': 'The Hobbit: The Battle of the Five Armies',
+'writer': 'J.R.R. Tolkein',
+'year': 2012,
+'franchise': 'The Hobbit',
+'synopsis': 'Bilbo and company are forced to engage in a war against an array of combatants and keep the lonely mountain from falling into the hands of a rising darkness.'
+},
+{
+'title': 'Pee Wee Hermans big Adventure'
+},
+{
+'title': 'Avatar'
+}
+])
+
+
+db.movies.find().pretty()
+
+db.movies.find({writer: 'Quentin Tarantino'}).pretty()
+
+db.movies.find({actors: 'Brad Pitt'}).pretty()
+
+db.movies.find({franchise: 'The Hobbit'}).pretty()
+
+db.movies.find({franchise: 1990}).pretty()
+
+db.movies.find( {
+   $and: [
+      { year: { $gte: 1990 } },
+      { year: { $lte: 1999 } }
+   ]
+} ).pretty()
+
+db.movies.find( {
+   $or: [
+      { year: { $gt: 2010 } },
+      { year: { $lt: 2000 } }
+   ]
+} ).pretty()
+
+
+
+db.movies.update({title: 'The Hobbit: An Unexpected Journey'},{
+'title': 'The Hobbit: An Unexpected Journey',
+'writer': 'J.R.R. Tolkein',
+'year': 2012,
+'franchise': 'The Hobbit',
+'synopsis': 'A reluctant hobbit Bilbo Baggins, sets out to the lonely mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon smaug.'
+})
+
+
+
+db.movies.update({title: 'The Hobbit: The Desolation of Smaug'},{
+'title': 'The Hobbit: The Desolation of Smaug',
+'writer': 'J.R.R. Tolkein',
+'year': 2013,
+'franchise': 'The Hobbit',
+'synopsis': 'The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring.'
+})
+
+
+
+db.movies.update({title: 'Pulp Fiction'},{
+'title': 'Pulp Fiction',
+'writer': 'Quentin Tarantino',
+'year': 1994,
+'actors': ['John Travolta','Uma Thurman','Samuel L. Jackson']
+})
+
+db.movies.find({synopsis:/Bilbo/}).pretty()
+
+db.movies.find({synopsis:/Gandalf/}).pretty()
+
+db.movies.find( {
+   $and: [
+       {synopsis:/Bilbo/} ,
+      {synopsis:{$not:/Gandalf/}}
+   ]
+} ).pretty()
+
+
+db.movies.find( {
+   $or: [
+       {synopsis:/dwarves/} ,
+      {synopsis:/hobbit/}
+   ]
+} ).pretty()
+
+
+db.movies.find( {
+   $or: [
+       {synopsis:/gold/} ,
+      {synopsis:/dragon/}
+   ]
+} ).pretty()
+
+
+db.movies.remove({title:'Pee Wee Hermans big Adventure'})
+
+db.movies.remove({title:'Avatar'})
+
+===========================================================================
+
+db.createCollection('users')
+
+db.users.insert({
+'username':'GoodGuyGreg',
+'first_name':'GoodGuy',
+'last_name':'Greg'
+})
+
+
+db.users.insert({
+'username':'ScumbagSteve',
+'full_name': 
+{'first':'Scumbag',
+'last':'Steve'}
+})
+
+
+db.createCollection('posts')
+
+db.posts.insertMany([{
+'username':'GoodGuyGreg',
+'title':'Passes Out at party',
+'body':'wakes up early and cleans house'
+},
+{
+'username':'GoodGuyGreg',
+'title':'Steals your identity',
+'body':'Raise your credit score'
+},
+{
+'username':'GoodGuyGreg',
+'title':'Reports a bug in your code',
+'body':'Sends you a pull Request'
+},
+{
+'username':'ScumbagSteve',
+'title':'Borrows something',
+'body':'Sells it'
+},
+{
+'username':'ScumbagSteve',
+'title':'Borrows everything',
+'body':'The end'
+},
+{
+'username':'ScumbagSteve',
+'title':'Forks your repo on github',
+'body':'Sets to private'
+}])
+
+
+db.createCollection('comments')
+
+db.comments.insertMany([{
+'username':'GoodGuyGreg',
+'comment':'Hope you got a good deal!',
+'post':'61b84cc0fa0cbe63cfd94abc'
+},
+{
+'username':'GoodGuyGreg',
+'comment':'Whats mine is yours!',
+'post':'61b84cc0fa0cbe63cfd94abd'
+},
+{
+'username':'GoodGuyGreg',
+'comment':'Do not violate the licensing agreement!',
+'post':'61b84cc0fa0cbe63cfd94abe'
+},
+{
+'username':'ScumbagSteve',
+'comment':'It still is not clean ',
+'post':'61b84cc0fa0cbe63cfd94ab9'
+},
+{
+'username':'ScumbagSteve',
+'comment':'Denied your PR cause I found a hack',
+'post':'61b84cc0fa0cbe63cfd94abb'
+}])
+
+
+db.users.find().pretty()
+
+db.posts.find().pretty()
+
+db.posts.find({username:'GoodGuyGreg'}).pretty()
+
+db.posts.find({username:'ScumbagSteve'}).pretty()
+
+db.comments.find()
+
+db.comments.find({username:'GoodGuyGreg'}).pretty()
+
+db.comments.find({username:'ScumbagSteve'}).pretty()
+
+db.comments.find({post:'61b84cc0fa0cbe63cfd94abb'}).pretty()
