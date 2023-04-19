@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            function coinFlip(n) 
+            {
+                var heads = 0;
+                const array = Array(n) 
+				.fill()
+				.map(() => 10 * Math.random()); 
+                for(let i=0; i<array.length; i++)
+                {
+                    if(array[i]<0.95)
+                    {
+                        array[i] = 0;
+                    }
+                    else if(array[i]>0.94)
+                    {
+                        array[i] = 1;
+                    }
+                    if(array[i] == 1)
+                    {
+                       heads = heads+1;
+                    }
+                }
+                return heads/n;
+            }
+            var n = parseInt(prompt("Enter a number: "))
+            document.write(coinFlip(n))
+        </script>
+    </body>
+</html>

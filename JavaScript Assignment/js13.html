@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            var arr = [1,2,3,4,5];
+            var n = parseInt(prompt("Option 1: for loop \nOption 2: while loop \nOption 3: do while loop\n\nEnter an option"));
+            switch(n)
+            {
+                case 1: 
+                    //using for loop
+                    var sum1 = 0;
+                    for(let i=0;i<arr.length;i++)
+                    {
+                        sum1 = sum1 + arr[i];
+                    }
+                    document.write("Using for loop: "+sum1);
+                break;
+
+                case 2:
+                    //using while loop
+                    var sum2 = 0;
+                    let i = 0;
+                    while(i<arr.length)
+                    {
+                        sum2 = sum2 + arr[i];
+                        i++;
+                    }        
+                    document.write("Using while loop: "+sum2);  
+                break;
+
+                case 3:
+                     //using do while loop
+                    var sum3 = 0;
+                    let j = 0;
+                    do{
+                        sum3 = sum3 + arr[j];
+                        j++;
+                    }
+                    while(j<arr.length);
+                    document.write("Using do while loop: "+sum3);
+                break;
+            }
+        </script>
+    </body>
+</html>

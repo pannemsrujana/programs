@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            var arr = [];
+            while(arr.length < 100)
+            {
+                var r = Math.floor(Math.random() * 200) + 1;
+                if(arr.indexOf(r) === -1) arr.push(r);
+            }
+            //the array is printed as follows
+            document.write(arr);
+
+            //maximum of the array
+            var maximum = Math.max.apply(null,arr);
+            document.write("<br>Maximum number in the array is: ",maximum);
+
+            //minimum of the array
+            var minimum = Math.min.apply(null,arr);
+            document.write("<br>Minimum number in the array is: ", minimum);
+
+            //odd and even count comparision
+            var even_count = 0;
+            var odd_count = 0;
+            for(let i=0;i<arr.length;i++)
+            {
+                if(arr[i]%2 == 0)
+                {
+                    even_count++;
+                }
+                else if(arr[i]%2!=0)
+                {
+                    odd_count++;
+                }
+            }
+            if(odd_count>even_count)
+            {
+                document.write("<br>Odd count is more<br>Odd count: "+odd_count+"<br>Even Count: "+even_count)
+            }
+            else if(odd_count==even_count)
+            {
+                document.write("<br>Both are equal<br>Odd count: "+odd_count+"<br>Even Count: "+even_count)
+            }
+            else
+            {
+                document.write("<br>Even count is more<br><br>Odd count: "+odd_count+"<br>Even Count: "+even_count)
+            }
+
+            //sum and average
+            var sum = 0;
+            for(let i=0;i<arr.length;i++)
+            {
+                sum = sum + arr[i];
+            }
+            document.write("<br>Sum is: "+sum+ " and the average is: "+sum/arr.length);
+        </script>
+    </body>
+</html>

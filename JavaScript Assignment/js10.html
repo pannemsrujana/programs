@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            const number = parseInt(prompt('Enter the number of elements: '));
+            let n1 = 0, n2 = 1, next;
+            for (let i = 1; i <= number; i++) {
+                document.write(n1 + "<br>")
+                next = n1 + n2;
+                n1 = n2;
+                n2 = next;
+            }
+        </script>
+    </body>
+</html>
